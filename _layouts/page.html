@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Mathjax Support -->
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</head>
+{% include head.html %}
+<body>
+{% include navbar.html %}
+
+  <main id="main">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col text-justify">
+                    <article id="page" class="markdown-body">
+                        <h1>{{ page.title }}</h1>
+                        {% if page.authors %}
+                            <p id="authors"><strong>Authors:</strong> {{ page.authors }}</p>
+                        {% endif %}
+                        {% if page.reviewers %}
+                            <p id="reviewers"><strong>Reviewers:</strong> {{ page.reviewers }}</p>
+                        {% endif %}
+                        {{ content }}
+                        <a href="https://github.com/CRESYM/colib0.github.io/issues/new?assignees=GJCRESYM%2C+matoubongrain&labels=enhancement%2Cbug%2Cevaluate+component&projects=Colib0&template=Evaluate.yml&title=%5BName%2FID+of+the+model%2F+test+case+to+be+evaluated%5D%3A+" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Evaluate</a>
+                      </article>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include tableOfContent.html %}
+
+{% include footer.html %}
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+{% include javascript.html %}
+</body>
+</html>
