@@ -1,24 +1,148 @@
----
-layout: default
-title: My Practice Page
----
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Practice Project</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body{
+      font-family: "Segoe UI", sans-serif;
+      background:#fff;
+    }
+    /* -------------- NAV -------------- */
+    .navbar-brand{font-weight:600;}
+    /* -------------- HERO -------------- */
+    .hero{
+      padding: 80px 20px;
+      text-align:center;
+    }
+    .hero-title{
+      font-size:2.5rem;
+      font-weight:700;
+    }
+    .hero-subtitle{
+      font-size:1.2rem;
+      color:#555;
+      margin-top:1rem;
+    }
+    .model-image{
+      max-width:100%;
+      height:auto;
+      margin-top:2rem;
+      box-shadow:0 4px 10px rgba(0,0,0,.1);
+    }
+    .hero-buttons{margin-top:2rem;}
+    .btn-outline-primary{margin:0 10px;}
+    /* -------------- ABOUT -------------- */
+    .about-section{
+      padding:60px 20px;
+      text-align:center;
+      background:#f9f9f9;
+    }
+    .section-title{font-weight:700;margin-bottom:20px;}
+  </style>
 </head>
+
 <body>
-  <main>
-    <h1>📘 文献引用示例</h1>
-    <p>这是我正在测试的 GitHub Pages 项目主页。</p>
 
-    <p>这是引用文献的例子：[@smith2020]</p>
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand" href="#">Practice</a>
 
-    <h2>📚 参考文献</h2>
-    {% bibliography %}
-  </main>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <!-- About ▼ -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            About
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+            <li><a class="dropdown-item" href="#">About 1</a></li>
+            <li><a class="dropdown-item" href="#">About 2</a></li>
+            <li><a class="dropdown-item" href="#">About 3</a></li>
+            <li><a class="dropdown-item" href="#">About 4</a></li>
+          </ul>
+        </li>
+
+        <!-- Models ▼ -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="modelsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Models
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="modelsDropdown">
+            <li><a class="dropdown-item" href="#">Model 1</a></li>
+            <li><a class="dropdown-item" href="#">Model 2</a></li>
+            <li><a class="dropdown-item" href="#">Model 3</a></li>
+            <li><a class="dropdown-item" href="#">Model 4</a></li>
+          </ul>
+        </li>
+
+        <!-- Test Cases ▼ -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="testsDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Test Cases
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="testsDropdown">
+            <li><a class="dropdown-item" href="#">Test 1</a></li>
+            <li><a class="dropdown-item" href="#">Test 2</a></li>
+            <li><a class="dropdown-item" href="#">Test 3</a></li>
+            <li><a class="dropdown-item" href="#">Test 4</a></li>
+          </ul>
+        </li>
+
+        <!-- Contact -->
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO SECTION ====== -->
+<section class="hero">
+  <div class="container">
+    <h1 class="hero-title">
+      Explore and Evaluate Dynamic Power System Models and Test Cases
+    </h1>
+    <p class="hero-subtitle">
+      An open‑source collaborative simulation site for academia and industry
+    </p>
+
+    <!-- 示例模型图，若无可删除 -->
+    <img src="images/model_diagram.png" alt="Model Diagram" class="model-image"/>
+
+    <div class="hero-buttons">
+      <a href="#" class="btn btn-outline-primary">Models</a>
+      <a href="#" class="btn btn-outline-primary">Test Systems</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== ABOUT SECTION ====== -->
+<section class="about-section">
+  <div class="container">
+    <h2 class="section-title">ABOUT PRACTICE</h2>
+    <p>
+      This site provides visualization and access to dynamic simulation models and test cases
+      for educational and research purposes.
+    </p>
+  </div>
+</section>
+
+<!-- Bootstrap 5 JS（含 Popper）-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
