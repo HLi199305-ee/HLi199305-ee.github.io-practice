@@ -1,0 +1,38 @@
+#
+# Copyright (c) 2018, RTE (http://www.rte-france.com)
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+
+title: practice
+theme: null
+markdown: kramdown
+url: "https://HLi199305-ee.github.io/practice" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: ""
+
+kramdown:
+  toc_levels: 2..3
+
+exclude:
+  - /backup
+  - /pages/todo
+  - /vendor
+  - /Gemfile
+  - /Gemfile.lock
+  - /LICENSE
+
+plugins:
+  - jekyll-relative-links
+  - jekyll-scholar
+
+
+scholar:
+  style: apa
+  locale: en
+  sort_by: none
+  order: ascending
+  source: ./_bibliography
+  bibliography: references.bib
+  bibliography_template: ""
+  query: "@*"
