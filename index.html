@@ -50,6 +50,7 @@
     .hero-title {
       font-size: 2.5rem;
       font-weight: 700;
+      color: #00599C; /* C++ 蓝色 */
     }
     .hero-subtitle {
       font-size: 1.2rem;
@@ -94,11 +95,11 @@
       color: #000;
     }
     @keyframes softShimmer {
-      0% { color: #333; text-shadow: none; opacity: 1; }
-      30% { color: #3a75c4; text-shadow: 0 0 6px rgba(100,150,255,0.4); opacity: 1; }
-      50% { color: #3a75c4; text-shadow: 0 0 8px rgba(100,150,255,0.6), 0 0 12px rgba(100,150,255,0.3); opacity: 0.85; }
-      70% { color: #3a75c4; text-shadow: 0 0 6px rgba(100,150,255,0.4); opacity: 1; }
-      100% { color: #333; text-shadow: none; opacity: 1; }
+      0%   { color: #3a75c4; text-shadow: 0 0 2px rgba(58,117,196,0.5); }
+      25%  { color: #4a8fe0; text-shadow: 0 0 4px rgba(90,140,220,0.6); }
+      50%  { color: #f25c05; text-shadow: 0 0 8px rgba(242,92,5,0.6); }
+      75%  { color: #d44500; text-shadow: 0 0 6px rgba(210,69,0,0.5); }
+      100% { color: #3a75c4; text-shadow: 0 0 2px rgba(58,117,196,0.4); }
     }
     .flash-letter {
       display: inline-block;
@@ -110,6 +111,16 @@
       50% { transform: translateY(0) scale(1); opacity: .90; }
       75% { transform: translateY(4px) scale(0.98); opacity: .80; }
       100% { transform: translateY(0) scale(1); opacity: .80; }
+    }
+    .cpp-logo {
+      width: 49px;
+      height: auto;
+      opacity: 0.95;
+      transition: transform 0.3s ease;
+      vertical-align: middle;
+    }
+    .cpp-logo:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -152,8 +163,6 @@
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="about/contact.html">Contact</a></li>
-
-          <!-- GitHub Icon Link -->
           <li class="nav-item d-flex align-items-center ms-3">
             <a class="nav-link p-1" href="https://github.com/your-repo-url" target="_blank" aria-label="GitHub">
               <i class="bi bi-github fs-4"></i>
@@ -167,10 +176,14 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h1 class="hero-title">
-        <i class="bi bi-lightning-charge-fill text-warning me-1"></i> 
-        <span class="flash-letter">H</span><span class="flash-letter">ARMON</span>ic stabilit<span class="flash-letter">Y</span> assessment of PE-penetrated power systems
-      </h1>
+      <div class="hero-title d-flex justify-content-center align-items-center text-center flex-wrap">
+        <div>
+          <i class="bi bi-lightning-charge-fill text-warning me-1"></i>
+          <span class="flash-letter">H</span><span class="flash-letter">ARMON</span>ic stabilit<span class="flash-letter">Y</span> assessment of PE-penetrated power systems
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
+          alt="C++ Logo" class="cpp-logo ms-2" />
+      </div>
       <p class="hero-subtitle">
         An open‑source C++ based framework capable of simulating all components in hybrid power systems stability assessment studies.
       </p>
