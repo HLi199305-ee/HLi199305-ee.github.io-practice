@@ -8,57 +8,184 @@
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
+    /* =======================
+       FONT (Monospace-only, English)
+       ======================= */
+    :root{
+      --font-mono: "JetBrains Mono", "IBM Plex Mono", "Source Code Pro",
+                   "Cascadia Code", Consolas, Menlo, "Liberation Mono",
+                   "DejaVu Sans Mono", "Courier New", monospace;
+    }
+
+    /* =======================
+       THEME VARIABLES
+       ======================= */
+    :root{
+      --cpp-blue:#00599C;
+      --cpp-blue-2:#f3faff;
+      --cpp-orange:#f25c05;
+
+      /* light */
+      --bg:#f3faff;
+      --ink:#111;
+      --muted:#0b1220cc;
+      --card:#ffffff;
+      --border:#d8d8d8;
+      --shadow:0 6px 24px rgba(0,0,0,.08);
+
+      --search-hit:#fff3b0;
+      --search-hit-text:#111;
+      --ring:#1c7cc285;
+
+      --hero-title:#111;
+      --hero-subtitle:#111;
+
+      --title-weight:700;
+      --accent:#8a2d2d;
+    }
+
+    /* dark */
+    html.theme-dark{
+      --bg:#1a0b2e;
+      --ink:#e5e5e5;
+      --muted:#b0b8c0;
+      --card:#2a2a2a;
+      --border:#3a3a3a;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+
+      --search-hit:#3b2f0a;
+      --search-hit-text:#fde68a;
+      --ring:#60a5fa80;
+
+      --hero-title:#fff;
+      --hero-subtitle:#fff;
+    }
+
+    /* Base */
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #eaeaea;
-      color: #333;
+      font-family: var(--font-mono);
+      line-height: 1.55;
+      background: var(--bg);
+      color: var(--ink);
+      font-variant-ligatures: none;   /* avoid <= → ligature */
+      font-variant-numeric: tabular-nums; /* align numbers */
+      transition: background .35s ease, color .35s ease;
     }
-    a, .nav-link, .dropdown-item {
-      color: #222;
-    }
+    a, .nav-link, .dropdown-item { color: var(--ink); }
     a:hover, .nav-link:hover, .dropdown-item:hover {
-      color: #000;
-      background-color: #ddd;
+      color: var(--ink);
+      background-color: rgba(255,255,255,.15);
     }
-    .navbar {
-      background-color: #ccc;
-      border-bottom: 1px solid #999;
+
+    /* Navbar */
+    .navbar { background: var(--cpp-blue) !important; border-bottom: none; }
+    .navbar.navbar-dark .navbar-brand,
+    .navbar.navbar-dark .nav-link { color:#fff !important; }
+    .navbar .dropdown-menu { background: var(--card); border:1px solid var(--border); }
+    .navbar .dropdown-item { color: #222; }
+    .navbar .dropdown-item:hover { background-color: rgba(0,0,0,.06); color: #111; }
+    .navbar-brand img { height: 34px; width:auto; display:block; }
+
+    /* Reusable */
+    :focus-visible{ outline:3px solid var(--ring); outline-offset:2px; border-radius:8px; }
+    .card-like{
+      background: var(--card);
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius:14px;
+      transition: background .35s ease, border-color .35s ease, color .35s ease;
     }
-    .navbar-brand {
-      font-weight: 600;
-      color: #000;
+    .badge-chip{
+      display:inline-flex; align-items:center; gap:.35rem;
+      border:1px solid var(--border); padding:.35rem .6rem; border-radius:999px;
+      font-size:.95rem; color:#111; background:var(--card);
+      transition: background .35s ease, border-color .35s ease, color .35s ease;
     }
-    .navbar-toggler {
-      background-color: #bbb;
+
+    /* Hero */
+    .hero { padding: 80px 20px; text-align: center; background: var(--bg); }
+    .hero.cpp-bg{
+      position:relative; overflow:hidden;
+      background:
+        var(--bg),
+        radial-gradient(transparent 60%, rgba(255,255,255,0.08)),
+        repeating-linear-gradient(60deg, rgba(255,255,255,0.10) 0 16px, transparent 16px 32px);
+      background-blend-mode: normal;
     }
-    .dropdown-menu {
-      background-color: #f5f5f5;
-      border: none;
+    html.theme-dark .hero.cpp-bg{
+      background:
+        var(--bg),
+        radial-gradient(transparent 55%, rgba(255,255,255,0.03)),
+        repeating-linear-gradient(60deg, rgba(255,255,255,0.04) 0 16px, transparent 16px 32px);
     }
-    .dropdown-item {
-      color: #333;
+    .hero.cpp-bg:after{
+      content:"<  >   {  }   ::   *   template  ";
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:-8px; font-size:13rem; letter-spacing:.2rem; opacity:.06;
+      white-space:nowrap; pointer-events:none; color:#fff;
+      filter:contrast(0) brightness(2);
     }
-    .dropdown-item:hover {
-      background-color: #ddd;
-      color: #000;
-    }
-    .hero {
-      padding: 80px 20px;
-      text-align: center;
-    }
+
     .hero-title {
       font-size: 2.5rem;
-      font-weight: 700;
-      color: #00599C; /* C++ 蓝色 */
+      font-weight: var(--title-weight);
+      letter-spacing: 0;            /* monospace = no tracking */
+      color: var(--hero-title);
+      line-height: 1.2;
+      font-family: var(--font-mono);
     }
+
+    /* keep solid color title (no gradient) */
+    .cpp-gradient{
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      background-clip: initial !important;
+      color: var(--hero-title) !important;
+      mix-blend-mode: normal !important;
+    }
+
+    /* Academic subtle emphasis on Y */
+    .accent-y{
+      position: relative;
+      font-weight: 800;
+      color: inherit;
+    }
+    .accent-y::after{
+      content:"";
+      position:absolute;
+      left:0; right:0;
+      bottom:-.12em;
+      height:1px;
+      background: currentColor;
+      opacity:.45;
+      transform: scaleX(.25);
+      transform-origin: left;
+      transition: transform .22s ease, opacity .22s ease;
+      transition-delay: .05s;
+    }
+    .hero-title:hover .accent-y::after{
+      transform: scaleX(1);
+      opacity:.6;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .accent-y::after{ transition: none; transform: scaleX(1); }
+    }
+
     .hero-subtitle {
-      font-size: 1.2rem;
-      color: #555;
+      font-size: 1.05rem;
+      color: var(--hero-subtitle) !important;
       margin-top: 1rem;
-      animation: floatWave 4s ease-in-out infinite;
-      display: block;
     }
+
+    .cpp-logo {
+      width: 49px; height: auto; opacity: 0.95;
+      transition: transform 0.3s ease; vertical-align: middle;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+    }
+    .cpp-logo:hover { transform: scale(1.06); }
+
     .model-image {
       width: 600px;
       filter: blur(10px);
@@ -68,70 +195,138 @@
       border-radius: 6px;
       display: block;
     }
-    .model-image.loaded {
-      filter: blur(0);
-      opacity: 1;
-    }
-    .hero-buttons {
-      margin-top: 2rem;
-    }
+    .model-image.loaded { filter: blur(0); opacity: 1; }
+
+    .hero-buttons { margin-top: 2rem; }
     .btn-outline-primary {
-      border-color: #333;
-      color: #333;
+      border-color: #fff; color: #fff;
+      backdrop-filter: saturate(120%) blur(2px);
+      font-family: var(--font-mono);
     }
-    .btn-outline-primary:hover {
-      background-color: #333;
-      color: #fff;
-    }
-    .about-section {
+    .btn-outline-primary:hover { background-color: #fff; color: var(--cpp-blue); }
+
+    /* Sponsors */
+    .sponsors {
       padding: 60px 20px;
-      text-align: center;
-      background: #d4d4d4;
-      color: #222;
+      background: var(--bg);
+      color: var(--ink);
+      border-top:1px solid rgba(255,255,255,.25);
+      border-bottom:1px solid rgba(255,255,255,.25);
+      transition: background .35s ease, color .35s ease, border-color .35s ease;
     }
+    html.theme-dark .sponsors{
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
     .section-title {
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 20px;
-      color: #000;
+      color: var(--ink);
+      letter-spacing: 0;
+      font-family: var(--font-mono);
     }
-    @keyframes softShimmer {
-      0%   { color: #3a75c4; text-shadow: 0 0 2px rgba(58,117,196,0.5); }
-      25%  { color: #4a8fe0; text-shadow: 0 0 4px rgba(90,140,220,0.6); }
-      50%  { color: #f25c05; text-shadow: 0 0 8px rgba(242,92,5,0.6); }
-      75%  { color: #d44500; text-shadow: 0 0 6px rgba(210,69,0,0.5); }
-      100% { color: #3a75c4; text-shadow: 0 0 2px rgba(58,117,196,0.4); }
+
+    .logo-cell {
+      height: 110px; display: flex; align-items: center; justify-content: center;
+      padding: 8px 12px; transition: transform .2s ease;
+      -webkit-tap-highlight-color: transparent; text-decoration: none;
     }
-    .flash-letter {
-      display: inline-block;
-      animation: softShimmer 4s ease-in-out infinite;
+    .logo-cell:hover{ transform: translateY(-2px); }
+
+    .logo-cell img {
+      max-height: 64px; max-width: 160px; width: auto; height: auto; object-fit: contain;
+      filter: grayscale(100%) opacity(.9) drop-shadow(0 1px 3px rgba(0,0,0,.15));
+      transition: transform .2s ease, filter .2s ease;
+      background:#fff; border-radius:8px; padding:6px;
     }
-    @keyframes floatWave {
-      0% { transform: translateY(0) scale(1); opacity: .80; }
-      25% { transform: translateY(-4px) scale(1.02); opacity: 1; }
-      50% { transform: translateY(0) scale(1); opacity: .90; }
-      75% { transform: translateY(4px) scale(0.98); opacity: .80; }
-      100% { transform: translateY(0) scale(1); opacity: .80; }
+    .logo-cell img:hover {
+      transform: scale(1.05);
+      filter: grayscale(0%) opacity(1) drop-shadow(0 2px 6px rgba(0,0,0,.25));
     }
-    .cpp-logo {
-      width: 49px;
-      height: auto;
-      opacity: 0.95;
-      transition: transform 0.3s ease;
-      vertical-align: middle;
+    .logo-cell:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 6px; }
+
+    /* Footer */
+    footer.bg-light{
+      background: var(--bg) !important; color: var(--ink);
+      border-top:1px solid var(--border);
+      font-family: var(--font-mono);
     }
-    .cpp-logo:hover {
-      transform: scale(1.1);
+
+    /* =======================
+       Header tools (theme + search)
+       ======================= */
+    .header-tools{
+      display:flex; align-items:center; gap:.75rem;
+      margin-left:.5rem;
+    }
+    .theme-switch{
+      position:relative; width:44px; height:24px; background:#cbd5e1;
+      border-radius:999px; cursor:pointer; transition:background .2s ease;
+      border:1px solid rgba(255,255,255,.6);
+    }
+    .theme-switch::after{
+      content:""; position:absolute; top:50%; left:3px; transform:translateY(-50%);
+      width:18px; height:18px; border-radius:50%; background:#fff; transition:left .2s ease;
+      box-shadow:0 1px 2px rgba(0,0,0,.15);
+    }
+    html.theme-dark .theme-switch{ background:#334155; border-color: var(--border); }
+    html.theme-dark .theme-switch::after{ left:23px; }
+
+    .search-btn{
+      width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center;
+      border-radius:8px; border:1px solid rgba(255,255,255,.6); background:transparent;
+      color:#fff; cursor:pointer;
+      font-family: var(--font-mono);
+    }
+    .search-btn:hover{ background:rgba(255,255,255,.15); }
+    html.theme-dark .search-btn{ border:1px solid var(--border); background:var(--card); color:var(--ink); }
+
+    .search-panel{
+      position:fixed; top:12px; right:12px; z-index:1050;
+      background:var(--card); border:1px solid var(--border); border-radius:12px;
+      box-shadow: var(--shadow);
+      padding:.6rem; display:none; gap:.5rem; align-items:center;
+      transition: background .35s ease, color .35s ease, border-color .35s ease;
+      font-family: var(--font-mono);
+    }
+    .search-panel.show{ display:flex; }
+    .search-panel input{
+      width:220px; border:1px solid var(--border); background:transparent; color:#111;
+      border-radius:8px; padding:.35rem .55rem; outline: none;
+      font-family: var(--font-mono);
+    }
+    .search-panel .sp-btn{
+      border:1px solid var(--border); background:var(--card); color:#111;
+      padding:.35rem .6rem; border-radius:8px; cursor:pointer;
+      font-family: var(--font-mono);
+    }
+    .search-panel .sp-count{ color:#555; font-size:.9rem; min-width:60px; text-align:center; }
+
+    .search-hit{
+      background: var(--search-hit);
+      color: var(--search-hit-text);
+      padding: 0 .15em; border-radius:.2em;
+    }
+    .search-hit.active{
+      outline:2px solid var(--cpp-orange);
+      outline-offset:2px;
     }
   </style>
 </head>
+
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Practice</a>
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++ Logo">
+      </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
@@ -144,6 +339,7 @@
               <li><a class="dropdown-item" href="about/contact.html">Contact Info</a></li>
             </ul>
           </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Models</a>
             <ul class="dropdown-menu">
@@ -153,6 +349,7 @@
               <li><a class="dropdown-item" href="models/model4.html">Model 4</a></li>
             </ul>
           </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Test Cases</a>
             <ul class="dropdown-menu">
@@ -162,32 +359,51 @@
               <li><a class="dropdown-item" href="tests/test4.html">Test 4</a></li>
             </ul>
           </li>
+
           <li class="nav-item"><a class="nav-link" href="about/contact.html">Contact</a></li>
+
           <li class="nav-item d-flex align-items-center ms-3">
             <a class="nav-link p-1" href="https://github.com/your-repo-url" target="_blank" aria-label="GitHub">
               <i class="bi bi-github fs-4"></i>
             </a>
           </li>
         </ul>
+
+        <!-- Header tools -->
+        <div class="header-tools ms-3">
+          <button id="themeToggle" class="theme-switch" title="Toggle light/dark" aria-label="Toggle theme"></button>
+          <button id="openSearch" class="search-btn" title="Search in page" aria-label="Search">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Search panel -->
+  <div id="searchPanel" class="search-panel" role="dialog" aria-modal="false" aria-label="In-page search">
+    <input id="searchInput" type="text" placeholder="Search text... (Enter)" />
+    <button class="sp-btn" id="prevHit" title="Previous (Shift+Enter)">Prev</button>
+    <button class="sp-btn" id="nextHit" title="Next (Enter)">Next</button>
+    <button class="sp-btn" id="clearHit" title="Clear">Clear</button>
+    <div class="sp-count" id="hitCount">0 / 0</div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero cpp-bg">
     <div class="container">
-      <div class="hero-title d-flex justify-content-center align-items-center text-center flex-wrap">
-        <div>
-          <i class="bi bi-lightning-charge-fill text-warning me-1"></i>
-          <span class="flash-letter">H</span><span class="flash-letter">ARMON</span>ic stabilit<span class="flash-letter">Y</span> assessment of PE-penetrated power systems
+      <div class="hero-title d-flex justify-content-center align-items-center text-center flex-wrap cpp-gradient">
+        <div class="me-2">
+          <span class="accent-y">HARMON</span>ic stabilit<span class="accent-y">Y</span> assessment of PE-penetrated power systems
         </div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"
-          alt="C++ Logo" class="cpp-logo ms-2" />
       </div>
+
       <p class="hero-subtitle">
-        An open‑source C++ based framework capable of simulating all components in hybrid power systems stability assessment studies.
+        An open-source C++ based framework capable of simulating all components in hybrid power systems stability assessment studies.
       </p>
+
       <img src="images/framework.png" alt="Model Diagram" class="model-image" loading="lazy" />
+
       <div class="hero-buttons">
         <a href="models/index.html" class="btn btn-outline-primary">View Models</a>
         <a href="tests/index.html" class="btn btn-outline-primary">Test Systems</a>
@@ -195,36 +411,217 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
+  <!-- Sponsors -->
+  <section id="sponsors" class="sponsors">
     <div class="container">
-      <h2 class="section-title">ABOUT PRACTICE</h2>
-      <p>
-        This site provides visualization and access to dynamic simulation models and test cases for educational and research purposes.
-      </p>
+      <h2 class="section-title text-center mb-4">Sponsors</h2>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+      <div class="col"><a class="logo-cell" href="https://www.dtu.dk/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Danmarks_Tekniske_Universitet_(logo).svg" alt="DTU">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.eles.si/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/ELES_logo.svg" alt="ELES">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.fraunhofer.de/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Fraunhofer-Gesellschaft_2009_logo.svg" alt="Fraunhofer">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.rte-france.com/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/RTE_logo.svg" alt="RTE France">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.grtgaz.com/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Logo_GRT_Gaz.svg" alt="GRTgaz">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.rwth-aachen.de/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/RWTH_Logo_3.svg" alt="RWTH Aachen">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.swissgrid.ch/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Swissgrid-logo.svg" alt="Swissgrid">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.tennet.eu/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Tennet_TSO_logo.svg" alt="TenneT">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.totalenergies.fr/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/Logo_TotalEnergies.svg" alt="TotalEnergies">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.tudelft.nl/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/TUDELFT.svg" alt="TU Delft">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.uni-lj.si/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/ul-logo_new.svg" alt="University of Ljubljana">
+      </a></div>
+
+      <div class="col"><a class="logo-cell" href="https://www.comillas.edu/" target="_blank" rel="noopener">
+        <img src="images/harmony_logos/universidad-pontificia-de-comillas.svg" alt="Comillas">
+      </a></div>
+
+    </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="text-center py-4 bg-light mt-5">
     <div class="container">
-      <small>&copy; 2025 PRACTICE Project. All rights reserved.</small>
+      <small>&copy; 2025 PRACTICE Project · Built with C++20 &amp; Eigen · All rights reserved.</small>
     </div>
   </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Image blur-to-clear + Theme & Search -->
   <script>
+    // image blur-to-clear
     document.addEventListener("DOMContentLoaded", function () {
       const img = document.querySelector(".model-image");
-      if (img.complete) {
-        img.classList.add("loaded");
-      } else {
-        img.addEventListener("load", () => {
-          img.classList.add("loaded");
-        });
+      if (img) {
+        if (img.complete) img.classList.add("loaded");
+        else img.addEventListener("load", () => img.classList.add("loaded"));
       }
     });
+
+    // theme toggle (with memory)
+    (function(){
+      const root = document.documentElement;
+      const KEY = "harmony-theme";
+      const btn = document.getElementById("themeToggle");
+
+      const saved = localStorage.getItem(KEY);
+      if (saved === "dark") root.classList.add("theme-dark");
+
+      btn?.addEventListener("click", () => {
+        root.classList.toggle("theme-dark");
+        localStorage.setItem(KEY, root.classList.contains("theme-dark") ? "dark" : "light");
+      });
+    })();
+
+    // in-page search (highlight + navigate)
+    (function(){
+      const openBtn = document.getElementById("openSearch");
+      const panel = document.getElementById("searchPanel");
+      const input = document.getElementById("searchInput");
+      const prevBtn = document.getElementById("prevHit");
+      const nextBtn = document.getElementById("nextHit");
+      const clearBtn = document.getElementById("clearHit");
+      const countEl = document.getElementById("hitCount");
+
+      let hits = [];  // elements with .search-hit
+      let index = -1;
+
+      function togglePanel(show){
+        panel.classList.toggle("show", show);
+        if (show) { input.focus(); input.select(); }
+      }
+
+      function clearHighlights(){
+        document.querySelectorAll(".search-hit").forEach(span=>{
+          const parent = span.parentNode;
+          while (span.firstChild) parent.insertBefore(span.firstChild, span);
+          parent.removeChild(span);
+          parent.normalize();
+        });
+        hits = []; index = -1; updateCount();
+      }
+
+      function updateCount(){
+        countEl.textContent = hits.length ? (index+1)+" / "+hits.length : "0 / 0";
+        document.querySelectorAll(".search-hit.active").forEach(e=>e.classList.remove("active"));
+        if (hits[index]) hits[index].classList.add("active");
+      }
+
+      function highlightAll(term){
+        clearHighlights();
+        if (!term) return;
+
+        const rx = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"), "gi");
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+          acceptNode(node){
+            const p = node.parentNode;
+            if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+            const tag = p.nodeName.toLowerCase();
+            if (["script","style","noscript","input","textarea","svg"].includes(tag)) return NodeFilter.FILTER_REJECT;
+            if (p.closest("#searchPanel") || p.closest("nav.navbar")) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+
+        const wrap = (textNode, start, end)=>{
+          const range = document.createRange();
+          range.setStart(textNode, start);
+          range.setEnd(textNode, end);
+          const mark = document.createElement("span");
+          mark.className = "search-hit";
+          range.surroundContents(mark);
+          hits.push(mark);
+        };
+
+        let node;
+        while ( (node = walker.nextNode()) ){
+          const txt = node.nodeValue;
+          let m; const ranges = [];
+          rx.lastIndex = 0;
+          while ((m = rx.exec(txt)) !== null) {
+            ranges.push([m.index, m.index + m[0].length]);
+          }
+          for (let i = ranges.length - 1; i >= 0; i--) {
+            const [s,e] = ranges[i];
+            wrap(node, s, e);
+          }
+        }
+
+        if (hits.length){
+          index = 0;
+          hits[index].scrollIntoView({behavior:"smooth", block:"center"});
+        }
+        updateCount();
+      }
+
+      function go(delta){
+        if (!hits.length) return;
+        index = (index + delta + hits.length) % hits.length;
+        hits[index].scrollIntoView({behavior:"smooth", block:"center"});
+        updateCount();
+      }
+
+      openBtn?.addEventListener("click", ()=> togglePanel(!panel.classList.contains("show")));
+      nextBtn?.addEventListener("click", ()=> go(+1));
+      prevBtn?.addEventListener("click", ()=> go(-1));
+      clearBtn?.addEventListener("click", ()=> { input.value=""; clearHighlights(); input.focus(); });
+
+      input?.addEventListener("keydown", (e)=>{
+        if (e.key === "Enter" && !e.shiftKey){
+          highlightAll(input.value.trim());
+          go(+0);
+        } else if (e.key === "Enter" && e.shiftKey){
+          e.preventDefault();
+          go(-1);
+        } else if (e.key === "Escape"){
+          panel.classList.remove("show");
+        }
+      });
+
+      document.addEventListener("click", (e)=>{
+        if (!panel.contains(e.target) && !openBtn.contains(e.target)){
+          panel.classList.remove("show");
+        }
+      });
+    })();
   </script>
 </body>
 </html>
+
+
+
+
+
