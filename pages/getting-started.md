@@ -1,6 +1,6 @@
 ## Installation and Usage
 
-See the [detailed installation instructions](installation.md).
+See the [detailed installation instructions](installation.html).
 
 ### Prerequisites 
 Harmony can be compiled on Windows. The requirements are:
