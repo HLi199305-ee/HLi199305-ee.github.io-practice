@@ -11,8 +11,7 @@
 
   <style>
     /* =========================================================
-       字体设置（英文等宽，避免连字干扰代码风格显示）
-       想换字体只改 --font-mono 即可
+       字体设置
     ========================================================== */
     :root{
       --font-mono: "JetBrains Mono","IBM Plex Mono","Source Code Pro",
@@ -21,45 +20,39 @@
     }
 
     /* =========================================================
-       主题变量（统一用 --color-* 命名，方便检索与替换）
-       说明：
-       - light 下定义默认浅色
-       - dark 主题用 html.theme-dark 单独覆盖
-       - 想全站换主色：优先改 --brand-* 与 --color-accent-*
+       浅色主题颜色
     ========================================================== */
     :root{
-      /* ---- 品牌色 ---- */
+      /* ---- CPP ---- */
       --brand-cpp-blue: #133f83;
       --brand-cpp-blue-weak: #f3faff;
 
-      /* ---- 基础色（浅色主题默认） ---- */
-      --color-bg: #f3faff;                 /* 页面背景 */
-      --color-ink: #111;                   /* 正文文字 */
-      --color-ink-muted: #0b1220cc;        /* 次要文字 */
-      --color-card: #ffffff;               /* 卡片背景 */
-      --color-border: #d8d8d8;             /* 边框色 */
-      --elevation: 0 6px 24px rgba(0,0,0,.08); /* 阴影 */
+      /* ---- 基础色 ---- */
+      --color-bg: #f3faff;               
+      --color-ink: #111;             
+      --color-ink-muted: #0b1220cc;       
+      --color-card: #ffffff;              
+      --color-border: #d8d8d8;           
+      --elevation: 0 6px 24px rgba(0,0,0,.08); 
 
-      /* ---- 交互 / 装饰 ---- */
-      --color-ring: #1c7cc285;             /* 键盘焦点外圈 */
-      --color-divider: #4675a1;            /* 分隔线（浅色） */
-      --color-search-hit-bg: #fff3b0;      /* 搜索命中底色 */
-      --color-search-hit-fg: #111;         /* 搜索命中文本 */
+      /* ---- 交互 ---- */
+      --color-ring: #1c7cc285;            
+      --color-divider: #4675a1;           
+      --color-search-hit-bg: #fff3b0;      
+      --color-search-hit-fg: #111;     
 
-      /* ---- 英雄区 ---- */
+      /* ---- 首页 ---- */
       --color-hero-title: #111;
       --color-hero-subtitle: #111;
 
-      /* ---- 强调色（按钮/描边/高亮）---- */
+      /* ---- 高亮---- */
       --color-accent: #8a2d2d;
-      --color-accent-strong: #ff7a00;      /* 新增：用于搜索聚焦描边等 */
+      --color-accent-strong: #ff7a00;    
       --title-weight: 700;
     }
 
     /* =========================================================
-       深色主题变量覆盖（务必与 :root 同级，不要嵌套）
-       - 手动切换：给 <html> 加 .theme-dark（JS 已处理）
-       - 系统偏好：见下方 prefers-color-scheme
+       深色主题颜色（覆盖）
     ========================================================== */
     html.theme-dark{
       --color-bg: #1a0b2e;
@@ -79,14 +72,8 @@
       --color-hero-subtitle: #fff;
     }
 
-    /* =========================================================
-       跟随系统偏好设置（首访时，如果 localStorage 没记录）
-       - 仅影响初始渲染；之后以 localStorage 为准
-    ========================================================== */
     @media (prefers-color-scheme: dark) {
       :root:not(.js-theme-locked) {
-        /* 通过在 html 上加 class 的方式激活深色；
-           不能在这里直接改变量，因为我们用的是 .theme-dark 逻辑 */
       }
     }
 
@@ -99,8 +86,8 @@
       line-height: 1.55;
       background: var(--color-bg);
       color: var(--color-ink);
-      font-variant-ligatures: none;        /* 避免 <= → 等连字 */
-      font-variant-numeric: tabular-nums;  /* 数字等宽，表格对齐 */
+      font-variant-ligatures: none;        
+      font-variant-numeric: tabular-nums;  
       transition: background .35s ease, color .35s ease;
     }
     a, .nav-link, .dropdown-item { color: var(--color-ink); }
@@ -116,7 +103,6 @@
 
     /* =========================================================
        导航栏
-       - 想换高度 / 背景：改 .navbar 背景色或 padding
     ========================================================== */
     .navbar {
       background: var(--brand-cpp-blue) !important;
@@ -127,13 +113,30 @@
     .navbar .dropdown-menu { background: var(--color-card); border:1px solid var(--color-border); }
     .navbar .dropdown-item { color: #222; }
     .navbar .dropdown-item:hover { background-color: rgba(0,0,0,.06); color: #111; }
-    .navbar-brand img { height: 48px; width:auto; display:block; } /* C++ Logo 尺寸 */
+    .navbar-brand img { height: 48px; width:auto; display:block; } 
+
+    .navbar .nav-link:hover,
+    .navbar .dropdown-item:hover,
+    .navbar .bi-github:hover,
+    #openSearch:hover {
+      color: #ab80d3 !important;  
+      background-color: transparent !important;
+    }
+
+    .navbar .nav-link i:hover,
+    #openSearch i:hover {
+    color: #ab80d3 !important;
+    background-color: transparent !important;
+    }
+
 
     /* =========================================================
-       英雄区（首屏）
-       - 背景图案在浅/深色下有不同透明度
+       首页
     ========================================================== */
-    .hero { padding: 80px 20px; text-align: center; background: var(--color-bg); }
+    .hero {
+      padding: 80px 20px;
+      background: var(--color-bg);
+    }
     .hero.cpp-bg{
       position:relative; overflow:hidden;
       background:
@@ -149,7 +152,6 @@
         repeating-linear-gradient(60deg, rgba(255,255,255,0.04) 0 16px, transparent 16px 32px);
     }
     .hero.cpp-bg:after{
-      /* 背景字符纹理，想去掉可删掉本伪元素 */
       content:"<  >   {  }   ::   *   template  ";
       position:absolute; left:50%; transform:translateX(-50%);
       bottom:-8px; font-size:13rem; letter-spacing:.2rem; opacity:.06;
@@ -160,13 +162,20 @@
     .hero-title {
       font-size: 2rem;
       font-weight: var(--title-weight);
-      letter-spacing: 0;
+      line-height: 1.3;
       color: var(--color-hero-title);
-      line-height: 1.2;
       font-family: var(--font-mono);
+      text-align: left;  /
     }
 
-    /* 纯色标题（若要渐变可改这里为背景渐变 + -webkit-background-clip:text）*/
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--color-hero-subtitle) !important;
+      margin-top: 1rem;
+      text-align: left;  /* 左对齐 */
+    }
+
+    /* 纯色标题 */
     .cpp-gradient{
       background: none !important;
       -webkit-background-clip: initial !important;
@@ -175,7 +184,7 @@
       mix-blend-mode: normal !important;
     }
 
-    /* 学术风下划线强调：包裹的字母会有细下划线（HARMON 与 Y） */
+    /* HARMON与Y加下划线 */
     .accent-y{
       position: relative;
       font-weight: 800;
@@ -207,20 +216,24 @@
       margin-top: 1rem;
     }
 
-    /* 首屏示意图：加载后由模糊→清晰 */
+    /* 首屏示意图加载后由模糊到清晰 */
     .model-image {
-      width: 600px;
+      max-width: 100%;
+      height: auto;
       filter: blur(10px);
       opacity: 0.3;
       transition: filter 1.2s ease, opacity 1.2s ease;
-      margin: 2rem auto 0;
+      margin: 0 auto;
       border-radius: 6px;
       display: block;
     }
-    .model-image.loaded { filter: blur(0); opacity: 1; }
+    .model-image.loaded {
+      filter: blur(0);
+      opacity: 1;
+    }
 
     /* =========================================================
-       快速入口（python.org 风格）
+       快速入口
     ========================================================== */
     .features{
       padding: 36px 0 28px;
@@ -237,21 +250,18 @@
     .feature-link{ font-weight: 600; text-decoration: none; }
     .feature-link:hover{ text-decoration: underline; }
 
-    /* 统一缩放一点，显得更紧凑 */
     #quick-links{ font-size: .95rem; }
     #quick-links .feature-title{ font-size: 1.05rem; }
     #quick-links .feature-text{  font-size: .95rem; }
     #quick-links .feature-link{  font-size: 1rem; }
     #quick-links .feature-icon{  font-size: 1.6rem; }
 
-    /* 分隔线 */
     .cpp-divider{
       border: 0; height: 2px; background: var(--color-divider);
       margin: 28px auto; max-width: 1300px;
 
     }
 
-    /* 去掉自带分隔线 */
     .features,
     .sponsors{
       border-top: 0 !important;
@@ -268,12 +278,12 @@
 
 
     /* =========================================================
-       About 区块（含悬停展开的 WP 列表）
+       About 区
     ========================================================== */
     .about .about-container{ max-width: 1680px; margin: 0 auto; }
     .about .card-like{ background: transparent !important; border: 0 !important; box-shadow: none !important; }
 
-    /* 下拉面板：默认收起，悬停/加类 .expanded 展开 */
+    /* 下拉，默认收起 */
     .wp-panel{
       overflow: hidden;
       max-height: 0;
@@ -314,7 +324,6 @@
 
     /* =========================================================
        赞助商 Logo 墙
-       - 每个格子相同高度、图片统一等比居中
     ========================================================== */
     .sponsors {
       padding: 60px 20px;
@@ -360,11 +369,11 @@
     }
 
     /* =========================================================
-       头部工具：主题切换 + 站内搜索
+       头部：主题切换 + 站内搜索
     ========================================================== */
     .header-tools{ display:flex; align-items:center; gap:.75rem; margin-left:.5rem; }
 
-    /* 主题切换器（滑块） */
+    /* 主题切换，滑块 */
     .theme-switch{
       position:relative; width:44px; height:24px; background:#cbd5e1;
       border-radius:999px; cursor:pointer; transition:background .2s ease;
@@ -378,7 +387,7 @@
     html.theme-dark .theme-switch{ background:#334155; border-color: var(--color-border); }
     html.theme-dark .theme-switch::after{ left:23px; }
 
-    /* 搜索按钮/面板 */
+    /* 搜索面板 */
     .search-btn{
       width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center;
       border-radius:8px; border:1px solid rgba(255,255,255,.6); background:transparent;
@@ -431,22 +440,23 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">About</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#about-harmony">Overview</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="about/team.html">Team</a></li>
-              <li><a class="dropdown-item" href="about/background.html">Background</a></li>
+              <li><a class="dropdown-item" href="about/team.html">Teams</a></li>
+              <li><a class="dropdown-item" href="about/doucument.html">Getting Started</a></li>
               <li><a class="dropdown-item" href="about/publications.html">Publications</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="about/contact.html">Contact Info</a></li>
             </ul>
           </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Models</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="models/model1.html">Model 1</a></li>
-              <li><a class="dropdown-item" href="models/model2.html">Model 2</a></li>
-              <li><a class="dropdown-item" href="models/model3.html">Model 3</a></li>
-              <li><a class="dropdown-item" href="models/model4.html">Model 4</a></li>
+              <li><a class="dropdown-item" href="models/Impdances.html">Impdances</a></li>
+              <li><a class="dropdown-item" href="models/Transofrmers.html">Transofrmers</a></li>
+              <li><a class="dropdown-item" href="models/Loads.html">Loads</a></li>
+              <li><a class="dropdown-item" href="models/Transformer Lines.html">Transformer Lines</a></li>
+              <li><a class="dropdown-item" href="models/Sources and Generators.html">Sources and Generators</a></li>
+              <li><a class="dropdown-item" href="models/Converters.html">Converters</a></li>
+              <li><a class="dropdown-item" href="models/Switch and Circuit Breakers.html">Switch and Circuit Breakers</a></li>
+              <li><a class="dropdown-item" href="models/Renewable Energy Sources.html">Renewable Energy Sources</a></li>
             </ul>
           </li>
 
@@ -463,13 +473,13 @@
           <li class="nav-item"><a class="nav-link" href="about/contact.html">Contact</a></li>
 
           <li class="nav-item d-flex align-items-center ms-3">
-            <a class="nav-link p-1" href="https://github.com/your-repo-url" target="_blank" aria-label="GitHub">
+            <a class="nav-link p-1" href="https://github.com/CRESYM/Harmony" target="_blank" aria-label="GitHub">
               <i class="bi bi-github fs-4"></i>
             </a>
           </li>
         </ul>
 
-        <!-- 头部工具：主题切换 + 搜索 -->
+        <!-- 头部：主题切换 + 搜索 -->
         <div class="header-tools ms-3">
           <button id="themeToggle" class="theme-switch" title="Toggle light/dark" aria-label="Toggle theme"></button>
           <button id="openSearch" class="search-btn" title="Search in page" aria-label="Search">
@@ -480,7 +490,7 @@
     </div>
   </nav>
 
-  <!-- ======================= 搜索面板（站内高亮/跳转） ======================= -->
+  <!-- ======================= 搜索面板（待修） ======================= -->
   <div id="searchPanel" class="search-panel" role="dialog" aria-modal="false" aria-label="In-page search">
     <input id="searchInput" type="text" placeholder="Search text... (Enter)" />
     <button class="sp-btn" id="prevHit" title="Previous (Shift+Enter)">Prev</button>
@@ -489,20 +499,27 @@
     <div class="sp-count" id="hitCount">0 / 0</div>
   </div>
 
-  <!-- ======================= 英雄区 ======================= -->
+  <!-- ======================= 首页展示 ======================= -->
   <section class="hero cpp-bg">
     <div class="container">
-      <div class="hero-title d-flex justify-content-center align-items-center text-center flex-wrap cpp-gradient">
-        <div class="me-2">
-          <span class="accent-y">HARMON</span>ic stabilit<span class="accent-y">Y</span> assessment of PE-penetrated power systems
+      <div class="row align-items-center">
+        
+        <!-- 左侧：标题 + 副标题 -->
+        <div class="col-lg-6 text-start">
+          <h1 class="hero-title cpp-gradient">
+            <span class="accent-y">HARMON</span>ic stabilit<span class="accent-y">Y</span> assessment of PE-penetrated power systems
+          </h1>
+          <p class="hero-subtitle mt-3">
+            An open-source C++ based framework capable of simulating all components in hybrid power systems stability assessment studies.
+          </p>
         </div>
+
+        <!-- 右侧：图片 -->
+        <div class="col-lg-6 text-center">
+          <img src="images/framework.png" alt="Model Diagram" class="model-image" loading="lazy" />
+        </div>
+
       </div>
-
-      <p class="hero-subtitle">
-        An open-source C++ based framework capable of simulating all components in hybrid power systems stability assessment studies.
-      </p>
-
-      <img src="images/framework.png" alt="Model Diagram" class="model-image" loading="lazy" />
     </div>
   </section>
 
@@ -578,7 +595,7 @@
             </p>
           </div>
 
-          <!-- 悬停展开的 WP 列表 -->
+          <!-- 悬停展开列表 -->
           <div class="wp-panel">
             <ul class="wp-list">
               <li class="wp-item">
@@ -588,7 +605,7 @@
                 </a>
               </li>
               <li class="wp-item">
-                <a href="about/wp2.html">
+                <a href="https://github.com/CRESYM/ACDC_OPF">
                   <span class="tag">WP2</span>
                   <span>Optimization models for harmonic &amp; DP analysis of AC-DC systems</span>
                 </a>
@@ -683,11 +700,10 @@
 
   <!-- =========================================================
        JS：图片加载渐显 + 主题切换（含记忆）+ 站内搜索
-       注释里标了关键点，方便你改动或移植
   ========================================================== -->
   <script>
     // ---------------------------
-    // 图片 blur → 清晰
+    // 图片 模糊到清晰
     // ---------------------------
     document.addEventListener("DOMContentLoaded", function () {
       const img = document.querySelector(".model-image");
@@ -698,16 +714,13 @@
     });
 
     // ---------------------------
-    // 主题切换（记忆在 localStorage）
-    // - KEY: localStorage 中的存储键
-    // - 默认：若无记录，遵循系统暗色偏好；一旦点击则锁定
+    // 主题切换 + 记忆
     // ---------------------------
     (function(){
-      const root = document.documentElement; // <html>
-      const KEY = "harmony-theme";          // 存储键名
+      const root = document.documentElement; 
+      const KEY = "harmony-theme";         
       const btn = document.getElementById("themeToggle");
 
-      // 标记“已经被 JS 接管主题”，用于避免媒体查询覆盖
       root.classList.add("js-theme-locked");
 
       // 初始化：读取本地记录
@@ -715,7 +728,7 @@
       if (saved === "dark") root.classList.add("theme-dark");
       if (saved === "light") root.classList.remove("theme-dark");
 
-      // 若无记录，跟随系统（一次性判断）
+      // 若无记录，跟随系统
       if (saved === null) {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
           root.classList.add("theme-dark");
@@ -732,11 +745,7 @@
     })();
 
     // ---------------------------
-    // 简易站内搜索（高亮 + 上下跳转）
-    // 用法：
-    // - 点击右上角放大镜打开面板
-    // - 输入后按 Enter 高亮全部；Shift+Enter 上一个
-    // - “Next/Prev” 按钮可循环跳转
+    // 简易站内搜索
     // ---------------------------
     (function(){
       const openBtn = document.getElementById("openSearch");
@@ -747,8 +756,8 @@
       const clearBtn = document.getElementById("clearHit");
       const countEl = document.getElementById("hitCount");
 
-      let hits = [];  // 所有 .search-hit 元素
-      let index = -1; // 当前激活命中的索引
+      let hits = [];  
+      let index = -1; 
 
       function togglePanel(show){
         panel.classList.toggle("show", show);
@@ -771,7 +780,7 @@
         if (hits[index]) hits[index].classList.add("active");
       }
 
-      // 高亮所有匹配
+      // 高亮匹配项目
       function highlightAll(term){
         clearHighlights();
         if (!term) return;

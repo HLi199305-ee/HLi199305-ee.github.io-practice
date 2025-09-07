@@ -258,7 +258,6 @@
     </div>
   </nav>
 
-  <!-- 主体：仅保留成员展示 -->
   <div class="page">
     <div class="section-caption">
       <span>Core members</span><span class="line"></span>
@@ -499,9 +498,6 @@
         </div>
       </article>
 
-
-
-  <!-- 个人资料 Modal -->
   <div class="modal fade" id="profileModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -525,17 +521,14 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- 主题、当前页高亮、头像 fallback、聚光灯、Modal 绑定（已移除筛选与搜索逻辑） -->
   <script>
     (function(){
       const root = document.documentElement;
       const KEY  = "harmony-theme";
       const btn  = document.getElementById("themeToggle");
 
-      // 主题初始化
       const saved = localStorage.getItem(KEY);
       if (saved === "dark") root.classList.add("theme-dark");
       if (saved === "light") root.classList.remove("theme-dark");
@@ -548,7 +541,7 @@
         localStorage.setItem(KEY, isDark ? "dark" : "light");
       });
 
-      // 当前页高亮（Home 根据路径自动高亮）
+      // 当前页高亮
       const current = (location.pathname.split('/').pop() || '').toLowerCase();
       document.querySelectorAll('.navbar .nav-link[data-match]').forEach(a=>{
         const list = a.getAttribute('data-match').split(',').map(s=>s.trim().toLowerCase());
@@ -558,7 +551,7 @@
         }
       });
 
-      // 头像 Fallback（根据 data-avatar 生成首字母）
+      // 头像 
       document.querySelectorAll('.avatar .fallback').forEach(el=>{
         const name = (el.getAttribute('data-avatar') || '').trim();
         if (name) {
@@ -579,7 +572,7 @@
         });
       });
 
-      // Modal：填充数据
+      // 
       const modal = document.getElementById('profileModal');
       modal.addEventListener('show.bs.modal', (ev)=>{
         const btn = ev.relatedTarget;
